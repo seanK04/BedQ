@@ -61,7 +61,7 @@ class SimulationMetrics:
 class HospitalEnvironment:
     """Simulation environment for hospital bed allocation"""
     def __init__(self, 
-                 num_beds: int = 100,
+                 num_beds: int = 82,
                  simulation_duration: float = 24*7,  # one week
                  patient_generator: Optional[PatientGenerator] = None):
         
@@ -249,8 +249,8 @@ def evaluate_model(env: HospitalEnvironment,
 def main():
     """Train and evaluate the model"""
     # Initialize environment and model
-    env = HospitalEnvironment(num_beds=100)
-    model = BedAllocationDQL(num_beds=100)
+    env = HospitalEnvironment(num_beds=82)
+    model = BedAllocationDQL(num_beds=82)
     
     # Train model
     print("Starting training...")
