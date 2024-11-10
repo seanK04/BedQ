@@ -1,8 +1,11 @@
-# Python
+# Python basics
 __pycache__/
 *.py[cod]
 *$py.class
 .Python
+*.so
+
+# Distribution/packaging
 build/
 develop-eggs/
 dist/
@@ -19,20 +22,49 @@ wheels/
 .installed.cfg
 *.egg
 
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# Virtual Environment
+# Virtual environments
 venv/
 env/
 ENV/
+.env
 
-# IDE
+# IDEs and editors
 .idea/
 .vscode/
 *.swp
 *.swo
+*.swn
+.DS_Store
 
 # Project specific
-data/*.csv
-models/*.pth
+trained_model.pth
+*.pth
+logs/
+checkpoints/
+results/
+wandb/
+*.log
+*.csv
+*.npy
+*.npz
+
+# Torch specific
+torch.save/
+*.pt
+*.pkl
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# Simulation outputs
+*.out
+simulation_results/

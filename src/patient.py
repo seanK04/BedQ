@@ -11,7 +11,7 @@ class Patient:
     severity: float  # severity score 1-10
     bed_id: Optional[int] = None  # bed assigned to patient, if any
     waiting_start: Optional[float] = None  # when patient started waiting
-    
+        
     @property
     def wait_time(self) -> float:
         """Calculate current wait time in hours"""
@@ -45,11 +45,13 @@ class PatientGenerator:
     
     def generate_patient(self, arrival_time: float) -> Patient:
         """Generate a single patient vector"""
+        # Correct calculation of log-normal parameters
+        variance = self.std_stay ** 2
+        mu = np.log(self.mean_stay**2 / np.sqrt(variance + self.mean_stay**2))
+        sigma = np.sqrt(np.log(1 + (variance / self.mean_stay**2)))
+        
         # Generate log-normal stay duration
-        stay = np.random.lognormal(
-            mean=np.log(self.mean_stay),
-            sigma=np.log(1 + (self.std_stay/self.mean_stay)**2)
-        )
+        stay = np.random.lognormal(mean=mu, sigma=sigma)
         
         # Generate beta-distributed severity score
         severity = np.random.beta(self.severity_alpha, self.severity_beta)
@@ -60,8 +62,8 @@ class PatientGenerator:
             stay_duration=stay,
             severity=severity
         )
-    
-    def generate_batch(self, duration: float) -> list[Patient]:
+        
+    def generate_batch(self, duration: float) -> list:
         """Generate a batch of patients for given duration"""
         arrival_times = self.generate_arrival_times(duration)
         return [self.generate_patient(t) for t in arrival_times]
