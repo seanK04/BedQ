@@ -27,11 +27,11 @@ class Patient:
 class PatientGenerator:
     """Generates patient vectors using Monte Carlo simulation"""
     def __init__(self, 
-                 arrival_rate: float = 2.5,  # patients per hour
-                 mean_stay: float = 84,      # mean stay in hours (3.5 days)
-                 std_stay: float = 36,       # std of stay in hours (1.5 days)
-                 severity_alpha: float = 2,   # beta distribution α
-                 severity_beta: float = 5):   # beta distribution β
+                 arrival_rate: float = 12.0,  # patients per hour
+                 mean_stay: float = 5.0,      # mean stay in hours (5 hrs)
+                 std_stay: float = 2.0,       # std of stay in hours (2 hrs)
+                 severity_alpha: float = 2.0,   # beta distribution α
+                 severity_beta: float = 5.0):   # beta distribution β
         self.arrival_rate = arrival_rate
         self.mean_stay = mean_stay
         self.std_stay = std_stay

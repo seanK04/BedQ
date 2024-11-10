@@ -44,11 +44,17 @@ class HospitalEnvironment:
         
     def calculate_reward(self):
         utilization = sum(1 for bed in self.beds if bed is not None) / self.n_beds
-        waiting_penalty = sum(
-            patient.severity * (self.current_time - patient.arrival_time)
+        
+        # Scale waiting penalty to similar magnitude as utilization
+        avg_waiting_time = np.mean([
+            self.current_time - patient.arrival_time 
             for patient in self.waiting_patients
-        )
-        return utilization - 0.1 * waiting_penalty
+        ]) if self.waiting_patients else 0
+        
+        # Normalize waiting time penalty to [0,1] range using sigmoid
+        waiting_penalty = 2 / (1 + np.exp(-avg_waiting_time / 24)) - 1  # 24 hour scale
+        
+        return utilization - 0.5 * waiting_penalty
 
 def train(episodes=1000, steps_per_episode=100):
     env = HospitalEnvironment()
